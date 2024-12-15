@@ -213,10 +213,10 @@
    * Events slider
    */
   new Swiper('.events-slider', {
-    speed: 600,
+    speed: 1100,
     loop: true,
     autoplay: {
-      delay: 5000,
+      delay: 7000,
       disableOnInteraction: false
     },
     slidesPerView: 'auto',
@@ -350,20 +350,25 @@ document.getElementById('contact-form')
 
 const expandButtons = document.querySelectorAll('.expand-text');
 
-// Iteriramo kroz sve dugmad expand-text
 expandButtons.forEach(button => {
-  button.addEventListener('click', function() {
-    const menuItem = this.closest('.menu-item'); // Pronalazimo najbliži roditeljski element sa klasom .menu-item
+  button.addEventListener('click', function () {
+    const menuItem = this.closest('.menu-item'); // Trenutno kliknuti element
 
-    // Proveravamo da li menu-item ima klasu expanded
+    // Zatvaramo sve ostale elemente menija
+    document.querySelectorAll('.menu-item').forEach(item => {
+      if (item !== menuItem && item.classList.contains('expanded')) {
+        item.classList.remove('expanded');
+        item.querySelector('.expand-text').innerText = 'Više...';
+      }
+    });
+
+    // Proveravamo da li trenutni element treba da se otvori ili zatvori
     if (menuItem.classList.contains('expanded')) {
-      // Ako ima, uklanjamo klasu expanded (vraćamo na početno stanje)
       menuItem.classList.remove('expanded');
-      this.innerText = 'Više...'; // Menjamo tekst dugmeta nazad na "Više..."
+      this.innerText = 'Više...';
     } else {
-      // Ako nema, dodajemo klasu expanded (proširujemo prikaz)
       menuItem.classList.add('expanded');
-      this.innerText = 'Manje...'; // Menjamo tekst dugmeta na "Manje..."
+      this.innerText = 'Manje...';
     }
 
     // Nakon promene stanja, osvežavamo raspored Isotope-a
@@ -384,16 +389,14 @@ expandButtons.forEach(button => {
 // Selektujemo glavni kontejner menija
 const menuContainer = document.querySelector('.menu-container');
 
-// Proveravamo da li smo uspešno selektovali kontejner
 if (menuContainer) {
-  // Inicijalizujemo Isotope za kontejner
   const menuIsotope = new Isotope(menuContainer, {
     itemSelector: '.menu-item',
     layoutMode: 'fitRows'
   });
 
   // Osvežavamo AOS animacije nakon završetka postavljanja Isotope layout-a
-  menuIsotope.on('arrangeComplete', function() {
+  menuIsotope.on('arrangeComplete', function () {
     AOS.refresh();
   });
 }
