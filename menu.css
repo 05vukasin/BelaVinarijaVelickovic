@@ -54,88 +54,99 @@
   
   
   /* Popup Styles */
-  .popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10000;
-    overflow-y: auto;
-  }
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Poravnava sadržaj od vrha */
+  padding-top: 20px; /* Dodaje razmak od vrha */
+  z-index: 10000;
+  overflow-y: auto; /* Omogućava skrolovanje cele popup sekcije */
+}
+
+.popup-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 700px;
+  width: 90%;
+  max-height: calc(100vh - 40px); /* Maksimalna visina sa marginama */
+  overflow-y: auto; /* Omogućava skrolovanje unutar sadržaja */
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.popup-content img {
+  max-width: 150px;
+  border-radius: 10px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  float: left;
+}
+
+.popup-content h3 {
+  margin: 0 0 15px;
+  font-size: 24px;
+  color: #000;
+}
+
+.popup-content p {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.5;
+  text-align: justify;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #000;
+  background: #fff;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  color: #cda45e;
+  background: #f7f7f7;
+}
+
+/* Responsive Styles */
+@media (max-width: 1000px) {
   .popup-content {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 700px;
-    width: 90%;
-    position: relative;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
   .popup-content img {
-    max-width: 150px;
-    border-radius: 10px;
-    margin-right: 20px;
-    margin-bottom: 10px;
-    float: left;
+    float: none;
+    margin: 0 0 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .popup-content {
+    font-size: 14px;
+    max-height: calc(100vh - 40px); /* Maksimalna visina za manje ekrane */
   }
   .popup-content h3 {
-    margin: 0 0 15px;
-    font-size: 24px;
-    color: #000;
+    margin-top: 20px;
+    font-size: 18px;
   }
   .popup-content p {
-    font-size: 16px;
-    color: #333;
-    line-height: 1.5;
-    text-align: justify;
+    font-size: 14px;
   }
-  .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
-    cursor: pointer;
-    color: #000;
-    background: #fff;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    line-height: 1;
-  }
-  .close-btn:hover {
-    color: #cda45e;
-    background: #f7f7f7;
-  }
-  
-  /* Responsive Styles */
-  @media (max-width: 1000px) {
-    .popup-content {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-    .popup-content img {
-      float: none;
-      margin: 0 0 20px;
-    }
-  }
-  @media (max-width: 600px) {
-    .popup-content {
-      font-size: 14px;
-    }
-    .popup-content h3 {
-      font-size: 18px;
-    }
-    .popup-content p {
-      font-size: 14px;
-    }
-  }
-  
+}
