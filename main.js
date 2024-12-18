@@ -171,37 +171,7 @@
     });
   }
 
-  /**
-   * Menu isotope and filter
-   */
-  window.addEventListener('load', () => {
-    let menuContainer = select('.menu-container');
-    if (menuContainer) {
-      let menuIsotope = new Isotope(menuContainer, {
-        itemSelector: '.menu-item',
-        layoutMode: 'fitRows'
-      });
-
-      let menuFilters = select('#menu-flters li', true);
-
-      on('click', '#menu-flters li', function(e) {
-        e.preventDefault();
-        menuFilters.forEach(function(el) {
-          el.classList.remove('filter-active');
-        });
-        this.classList.add('filter-active');
-
-        menuIsotope.arrange({
-          filter: this.getAttribute('data-filter')
-        });
-        menuIsotope.on('arrangeComplete', function() {
-          AOS.refresh()
-        });
-      }, true);
-    }
-
-  });
-
+  
   /**
    * Initiate glightbox 
    */
@@ -344,59 +314,3 @@ document.getElementById('contact-form')
     });
 });
 
-/**meni-------- */
-
-
-
-const expandButtons = document.querySelectorAll('.expand-text');
-
-expandButtons.forEach(button => {
-  button.addEventListener('click', function () {
-    const menuItem = this.closest('.menu-item'); // Trenutno kliknuti element
-
-    // Zatvaramo sve ostale elemente menija
-    document.querySelectorAll('.menu-item').forEach(item => {
-      if (item !== menuItem && item.classList.contains('expanded')) {
-        item.classList.remove('expanded');
-        item.querySelector('.expand-text').innerText = 'Više...';
-      }
-    });
-
-    // Proveravamo da li trenutni element treba da se otvori ili zatvori
-    if (menuItem.classList.contains('expanded')) {
-      menuItem.classList.remove('expanded');
-      this.innerText = 'Više...';
-    } else {
-      menuItem.classList.add('expanded');
-      this.innerText = 'Manje...';
-    }
-
-    // Nakon promene stanja, osvežavamo raspored Isotope-a
-    menuIsotope.arrange();
-
-    // Promena stilova za prošireni element
-    document.querySelector('.menu').style.overflow = 'visible';
-    document.querySelector('.menu').style.height = 'fit-content';
-    document.querySelector('.section-bg').style.overflow = 'visible';
-    document.querySelector('.section-bg').style.height = 'fit-content';
-    document.querySelector('.menu .container').style.overflow = 'visible';
-    document.querySelector('.menu .container').style.height = 'fit-content';
-    document.querySelector('.menu-container').style.overflow = 'visible';
-    document.querySelector('.menu-container').style.height = 'fit-content';
-  });
-});
-
-// Selektujemo glavni kontejner menija
-const menuContainer = document.querySelector('.menu-container');
-
-if (menuContainer) {
-  const menuIsotope = new Isotope(menuContainer, {
-    itemSelector: '.menu-item',
-    layoutMode: 'fitRows'
-  });
-
-  // Osvežavamo AOS animacije nakon završetka postavljanja Isotope layout-a
-  menuIsotope.on('arrangeComplete', function () {
-    AOS.refresh();
-  });
-}
